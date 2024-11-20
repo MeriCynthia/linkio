@@ -10,7 +10,7 @@ class User extends Model
     use HasFactory;
 
     protected $primaryKey = 'user_id'; // Primary key non-increment
-    public $incrementing = false;
+    public $incrementing = true;
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -22,4 +22,9 @@ class User extends Model
         'email',
         'profile_picture'
     ];
+    // Relasi satu ke satu dengan MyLink
+    public function myLink()
+    {
+        return $this->hasOne(MyLink::class, 'user_id'); // 'user_id' adalah foreign key
+    }
 }
