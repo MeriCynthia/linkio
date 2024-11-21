@@ -9,6 +9,7 @@ class TextBlock extends Model
 {
     use HasFactory;
 
+    protected $table = 'text_block';
     protected $primaryKey = 'textblock_id'; // Sesuaikan jika id utama memiliki nama berbeda
     protected $fillable = [
         'mylink_id',

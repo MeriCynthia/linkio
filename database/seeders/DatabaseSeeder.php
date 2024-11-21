@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            LinkBlockSeeder::class
+            LinkBlockSeeder::class,
+            TextBlockSeeder::class
         ]);
     }
 }
