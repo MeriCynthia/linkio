@@ -18,11 +18,12 @@ class TextBlockFactory extends Factory
     {
         return [
             'mylink_id' => MyLink::factory(), // Relasi ke MyLink
-            'text' => $this->faker->sentence(),
-            'font_family' => $this->faker->randomElement(['Roboto', 'Lobster', 'Arial']),
-            'font_color' => $this->faker->hexColor(),
-            'font_size' => $this->faker->numberBetween(12, 24),
+            'title' => $this->faker->sentence(),
+            'font' => $this->faker->randomElement(['Arial', 'Roboto', 'Lobster']),
             'alignment' => $this->faker->randomElement(['left', 'center', 'right']),
+            'bold' => $this->faker->boolean(),
+            'italic' => $this->faker->boolean(),
+            'color' => $this->faker->hexColor(),
         ];
     }
 }

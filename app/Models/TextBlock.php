@@ -9,6 +9,7 @@ class TextBlock extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'textblock_id'; // Sesuaikan jika id utama memiliki nama berbeda
     protected $fillable = [
         'mylink_id',
         'title',
@@ -19,9 +20,9 @@ class TextBlock extends Model
         'color',
     ];
 
-    // Relasi ke model MyLink
+    // Relasi ke MyLink
     public function mylink()
     {
-        return $this->belongsTo(MyLink::class);
+        return $this->belongsTo(MyLink::class, 'mylink_id');
     }
 }

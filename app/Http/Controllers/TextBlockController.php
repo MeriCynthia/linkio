@@ -2,77 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MyLink;
 use App\Models\TextBlock;
 use Illuminate\Http\Request;
 
 class TextBlockController extends Controller
 {
-    public function index(Request $request, $mylinkId)
+    // Menampilkan semua TextBlock
+    public function index()
     {
-        $mylink = MyLink::where('id', $mylinkId)
-            ->where('user_id', $request->user()->id)
-            ->firstOrFail();
-
-        $textBlocks = $mylink->textBlocks;
-        return response()->json($textBlocks);
-    }
-
-    public function store(Request $request, $mylinkId)
-    {
-        $mylink = MyLink::where('id', $mylinkId)
-            ->where('user_id', $request->user()->id)
-            ->firstOrFail();
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'font' => 'string|nullable',
-            'alignment' => 'in:left,center,right',
-            'bold' => 'boolean',
-            'italic' => 'boolean',
-            'color' => 'string|nullable',
-        ]);
-
-        $validated['mylink_id'] = $mylink->id;
-
-        $textBlock = TextBlock::create($validated);
-        return response()->json($textBlock, 201);
-    }
-
-    public function update(Request $request, $mylinkId, $id)
-    {
-        $mylink = MyLink::where('id', $mylinkId)
-            ->where('user_id', $request->user()->id)
-            ->firstOrFail();
-
-        $textBlock = TextBlock::where('id', $id)
-            ->where('mylink_id', $mylink->id)
-            ->firstOrFail();
-
-        $validated = $request->validate([
-            'title' => 'string|max:255',
-            'font' => 'string|nullable',
-            'alignment' => 'in:left,center,right',
-            'bold' => 'boolean',
-            'italic' => 'boolean',
-            'color' => 'string|nullable',
-        ]);
-
-        $textBlock->update($validated);
+        $textBlock = TextBlock::with('mylink')->get();
         return response()->json($textBlock);
     }
 
-    public function destroy(Request $request, $mylinkId, $id)
+    // Menampilkan TextBlock berdasarkan ID
+    public function show($id)
     {
-        $mylink = MyLink::where('id', $mylinkId)
-            ->where('user_id', $request->user()->id)
-            ->firstOrFail();
+        $textBlock = TextBlock::with('mylink')->find($id);
 
-        $textBlock = TextBlock::where('id', $id)
-            ->where('mylink_id', $mylink->id)
-            ->firstOrFail();
+        if (!$textBlock) {
+            return response()->json(['message' => 'TextBlock not found'], 404);
+        }
+
+        return response()->json($textBlock);
+    }
+
+    // Menambahkan TextBlock baru
+    public function store(Request $request)
+    {
+        $request->validate([
+            'mylink_id' => 'required|exists:my_links,mylink_id', // Pastikan mylink_id valid
+            'title' => 'nullable|string|max:255',
+            'font' => 'nullable|string|max:255',
+            'alignment' => 'nullable|in:left,center,right',
+            'bold' => 'nullable|boolean',
+            'italic' => 'nullable|boolean',
+            'color' => 'nullable|string|max:7', // Hex color
+        ]);
+
+        $textBlock = TextBlock::create($request->all());
+
+        return response()->json(['message' => 'TextBlock created successfully', 'textBlock' => $textBlock], 201);
+    }
+
+    // Mengupdate TextBlock berdasarkan ID
+    public function update(Request $request, $id)
+    {
+        $textBlock = TextBlock::find($id);
+
+        if (!$textBlock) {
+            return response()->json(['message' => 'TextBlock not found'], 404);
+        }
+
+        $request->validate([
+            'title' => 'nullable|string|max:255',
+            'font' => 'nullable|string|max:255',
+            'alignment' => 'nullable|in:left,center,right',
+            'bold' => 'nullable|boolean',
+            'italic' => 'nullable|boolean',
+            'color' => 'nullable|string|max:7', // Hex color
+        ]);
+
+        $textBlock->update($request->all());
+
+        return response()->json(['message' => 'TextBlock updated successfully', 'textBlock' => $textBlock]);
+    }
+
+    // Menghapus TextBlock berdasarkan ID
+    public function destroy($id)
+    {
+        $textBlock = TextBlock::find($id);
+
+        if (!$textBlock) {
+            return response()->json(['message' => 'TextBlock not found'], 404);
+        }
 
         $textBlock->delete();
-        return response()->json(['message' => 'Text block deleted successfully']);
+
+        return response()->json(['message' => 'TextBlock deleted successfully']);
     }
 }
