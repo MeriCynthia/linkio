@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,22 +8,19 @@ class User extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'user_id'; // Primary key non-increment
-    public $incrementing = true;
-    protected $keyType = 'string';
-
+    protected $primaryKey = 'user_id';
     protected $fillable = [
-        'user_id',
         'password',
         'phone_number',
         'name',
         'username',
         'email',
-        'profile_picture'
+        'profile_picture',
     ];
-    // Relasi satu ke satu dengan MyLink
-    public function myLink()
+
+    // Relasi ke MyLink
+    public function myLinks()
     {
-        return $this->hasOne(MyLink::class, 'user_id'); // 'user_id' adalah foreign key
+        return $this->hasMany(MyLink::class, 'user_id');
     }
 }
