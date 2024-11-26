@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    use HasFactory;
+    
+    use HasApiTokens, HasFactory;
 
     protected $primaryKey = 'user_id'; // Primary key non-increment
     public $incrementing = false;
@@ -20,6 +22,7 @@ class User extends Model
         'name',
         'username',
         'email',
-        'profile_picture'
+        'profile_picture',
     ];
+
 }
