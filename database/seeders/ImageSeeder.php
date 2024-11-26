@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ImageSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
     public function run()
     {
         DB::table('images')->insert([

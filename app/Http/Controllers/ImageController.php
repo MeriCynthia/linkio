@@ -48,7 +48,7 @@ class ImageController extends Controller
     public function index()
     {
         // Ambil semua data gambar
-        $images = Image::all(['id', 'image_name', 'image']);
+        $images = Image::all(['image_id', 'image_name', 'image']);
 
         // Tambahkan URL lengkap ke gambar
         foreach ($images as $image) {
