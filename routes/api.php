@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LinkBlockController;
 use App\Http\Controllers\MyLinkController;
+use App\Http\Controllers\ImageController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,3 +33,8 @@ Route::post('/mylinks', [MyLinkController::class, 'store']);
 Route::put('/mylinks/{id}', [MyLinkController::class, 'update']);
 Route::delete('/mylinks/{id}', [MyLinkController::class, 'destroy']);
 Route::get('/mylinks/username/{username}', [MyLinkController::class, 'getByUsername']);
+Route::post('/images', [ImageController::class, 'store']);
+Route::get('/images', [ImageController::class, 'index']);
+Route::get('/images/{id}', [ImageController::class, 'show']);
+Route::put('/images/{id}', [ImageController::class, 'update']);
+Route::delete('/images/{id}', [ImageController::class, 'destroy']);

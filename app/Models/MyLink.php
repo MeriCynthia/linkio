@@ -20,9 +20,17 @@ class MyLink extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    // Relasi ke LinkBlock (banyak)
     public function linkBlocks()
     {
         return $this->hasMany(LinkBlock::class, 'mylink_id');
+    }
+
+    // Relasi ke ImageBlock (hanya satu)
+    public function image()
+    {
+        return $this->hasOne(Image::class, 'mylink_id');
     }
 
 }

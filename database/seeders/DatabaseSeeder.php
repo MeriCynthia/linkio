@@ -12,7 +12,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             LinkBlockSeeder::class,
-            TextBlockSeeder::class
+            TextBlockSeeder::class,
+            ImageSeeder::class
         ]);
     }
 }
