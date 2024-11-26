@@ -22,4 +22,3 @@ Route::post('/user/{id}/profile-picture', [UserController::class, 'updateProfile
 Route::delete('/user/{id}/profile-picture', [UserController::class, 'deleteProfilePicture']);
 
 Route::middleware('auth:sanctum')->post('/logout', [UserController::class, 'logout']);
-
