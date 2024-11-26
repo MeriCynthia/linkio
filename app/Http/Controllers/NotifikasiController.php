@@ -34,7 +34,6 @@ class NotifikasiController extends Controller
         ]);
 
         $notifikasi = Notifikasi::create([
-            'notifikasi_id' => uniqid('notifikasi_'), 
             'user_id' => $request->user_id,
             'timestamp' => now(),
             'judul' => $request->judul,
