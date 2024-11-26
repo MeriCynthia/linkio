@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    use HasFactory;
+    
+    use HasApiTokens, HasFactory;
 
     protected $primaryKey = 'user_id'; // Primary key non-increment
     public $incrementing = true;
@@ -20,11 +22,13 @@ class User extends Model
         'name',
         'username',
         'email',
-        'profile_picture'
+        'profile_picture',
     ];
+
     // Relasi satu ke satu dengan MyLink
     public function myLink()
     {
         return $this->hasOne(MyLink::class, 'user_id'); // 'user_id' adalah foreign key
     }
+
 }
