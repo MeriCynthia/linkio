@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LinkBlockController;
 use App\Http\Controllers\MyLinkController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\NotifikasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,5 @@ Route::get('/images', [ImageController::class, 'index']);
 Route::get('/images/{id}', [ImageController::class, 'show']);
 Route::put('/images/{id}', [ImageController::class, 'update']);
 Route::delete('/images/{id}', [ImageController::class, 'destroy']);
+Route::get('/notifikasis/user/{userId}', [NotifikasiController::class, 'getNotifikasisByUser']); 
+Route::post('/notifikasi', [NotifikasiController::class, 'createNotifikasi']);

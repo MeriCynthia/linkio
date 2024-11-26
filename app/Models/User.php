@@ -5,7 +5,9 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
+class User extends Model
 class User extends Model
 {
     
@@ -16,6 +18,7 @@ class User extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'user_id',
         'user_id',
         'password',
         'phone_number',
