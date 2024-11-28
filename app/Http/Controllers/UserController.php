@@ -151,4 +151,27 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Logout successful'], 200);
     }
+    
+    public function searchByUsername(Request $request)
+    {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:50', // Pastikan username valid
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Validation error', 'errors' => $validator->errors()], 422);
+        }
+
+        // Mencari pengguna berdasarkan username
+        $user = User::where('username', $request->username)->first();
+
+        // Jika pengguna tidak ditemukan
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Mengembalikan hasil pengguna yang ditemukan
+        return response()->json(['message' => 'User found', 'user' => $user], 200);
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\LinkBlockController;
 use App\Http\Controllers\MyLinkController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\TextBlockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ Route::post('/login', [UserController::class, 'login']);
 Route::put('/user/{id}', [UserController::class, 'updateProfile']);
 Route::post('/user/{id}/profile-picture', [UserController::class, 'updateProfilePicture']);
 Route::delete('/user/{id}/profile-picture', [UserController::class, 'deleteProfilePicture']);
+Route::get('/user/search', [UserController::class, 'searchByUsername']);
 Route::middleware('auth:sanctum')->post('/logout', [UserController::class, 'logout']);
 Route::get('/link-blocks', [LinkBlockController::class, 'index']);
 Route::post('/link-blocks', [LinkBlockController::class, 'store']);
@@ -44,3 +46,10 @@ Route::put('/images/{id}', [ImageController::class, 'update']);
 Route::delete('/images/{id}', [ImageController::class, 'destroy']);
 Route::get('/notifikasis/user/{userId}', [NotifikasiController::class, 'getNotifikasisByUser']); 
 Route::post('/notifikasi', [NotifikasiController::class, 'createNotifikasi']);
+Route::prefix('text-blocks')->group(function () {
+    Route::get('/', [TextBlockController::class, 'index']);
+    Route::get('/{id}', [TextBlockController::class, 'show']);
+    Route::post('/', [TextBlockController::class, 'store']);
+    Route::put('/{id}', [TextBlockController::class, 'update']);
+    Route::delete('/{id}', [TextBlockController::class, 'destroy']);
+});
